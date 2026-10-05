@@ -1,10 +1,11 @@
 const app = require('./app');
 const mongoose = require('mongoose');
 const connectDatabase = require('./config/database');
-
-const port = process.env.PORT ?? 3000;
+const dotenv = require('dotenv');
 
 async function startServer() {
+  dotenv.config({ quiet: true });
+  const port = process.env.PORT ?? 3000;
   try {
     await connectDatabase();
     return await new Promise((resolve, reject) => {
