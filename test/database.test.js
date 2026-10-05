@@ -4,6 +4,12 @@ const mongoose = require('mongoose');
 const connectDatabase = require('../src/config/database');
 const startServer = require('../src/server');
 const app = require('../src/app');
+const dotenv = require('dotenv');
+
+// Las pruebas de conexión no deben cargar secretos del .env local.
+test.beforeEach((t) => {
+  t.mock.method(dotenv, 'config', () => ({ parsed: {} }));
+});
 
 function setUri(t, uri) {
   const previous = process.env.MONGODB_URI;
