@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/KenCruz48/racetrack-api#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongoose": "^9.11.0"
   },
   "private": true,
   "engines": {
