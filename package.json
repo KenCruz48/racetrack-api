@@ -1,0 +1,30 @@
+{
+  "name": "racetrack-api",
+  "version": "1.0.0",
+  "description": "Backend para la gestión de eventos deportivos desarrollado con Node.js, Express y MongoDB Atlas.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KenCruz48/racetrack-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/KenCruz48/racetrack-api/issues"
+  },
+  "homepage": "https://github.com/KenCruz48/racetrack-api#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}
