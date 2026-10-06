@@ -1,12 +1,13 @@
 {
   "name": "racetrack-api",
   "version": "1.0.0",
-  "description": "Backend para la gestión de eventos deportivos desarrollado con Node.js, Express y MongoDB Atlas.",
+  "description": "Backend para la gestion de eventos deportivos desarrollado con Node.js, Express y MongoDB Atlas.",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js",
-    "test": "node --test"
+    "start": "cross-env NODE_ENV=development node src/server.js",
+    "dev": "cross-env NODE_ENV=development node --watch src/server.js",
+    "test": "cross-env NODE_ENV=test node --test",
+    "start:production": "cross-env NODE_ENV=production node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +29,8 @@
   "private": true,
   "engines": {
     "node": ">=22"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }
