@@ -1,0 +1,54 @@
+const bcrypt = require('bcryptjs');
+const User = require('../models/userModel');
+
+async function registerUser({ name, email, password }) {
+  if (!name || !email || !password) {
+    const error = new Error(
+      'Nombre, correo y contrasena son obligatorios'
+    );
+    error.status = 400;
+    throw error;
+  }
+
+  if (password.length < 8) {
+    const error = new Error(
+      'La contrasena debe tener al menos 8 caracteres'
+    );
+    error.status = 400;
+    throw error;
+  }
+
+  const normalizedEmail = email.trim().toLowerCase();
+
+  const existingUser = await User.findOne({
+    email: normalizedEmail,
+  });
+
+  if (existingUser) {
+    const error = new Error(
+      'Ya existe un usuario con ese correo'
+    );
+    error.status = 409;
+    throw error;
+  }
+
+  const passwordHash = await bcrypt.hash(password, 12);
+
+  const user = await User.create({
+    name: name.trim(),
+    email: normalizedEmail,
+    passwordHash,
+  });
+
+  return {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    active: user.active,
+    createdAt: user.createdAt,
+  };
+}
+
+module.exports = {
+  registerUser,
+};
