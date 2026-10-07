@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/KenCruz48/racetrack-api#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^18.0.5",
     "express": "^5.2.1",
     "mongoose": "^9.11.0"
