@@ -1,0 +1,59 @@
+name: Frontend Sprint 3
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      verify_render:
+        description: Ejecutar regresión Selenium contra el servicio Render de QA
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm --prefix frontend ci
+      - run: npm --prefix frontend run lint
+      - run: npm --prefix frontend test
+      - run: npm --prefix frontend run build
+  render-regression:
+    if: github.event_name == 'workflow_dispatch' && inputs.verify_render
+    needs: frontend
+    runs-on: ubuntu-latest
+    env:
+      FRONTEND_E2E_URL: ${{ vars.RENDER_QA_FRONTEND_URL }}
+      E2E_EVENT: ${{ vars.RENDER_QA_EVENT }}
+      E2E_CATEGORY: ${{ vars.RENDER_QA_CATEGORY }}
+      E2E_RANKING_EVENT: ${{ vars.RENDER_QA_RANKING_EVENT }}
+      E2E_EMAIL: ${{ secrets.RENDER_QA_EMAIL }}
+      E2E_PASSWORD: ${{ secrets.RENDER_QA_PASSWORD }}
+      MONGOMS_DISABLE_POSTINSTALL: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - name: Verificar origen y disponibilidad de Render
+        run: |
+          node -e 'const u=new URL(process.env.FRONTEND_E2E_URL); if(u.protocol!=="https:" || !u.hostname.endsWith(".onrender.com") || u.pathname.replace(/\/$/,"")!=="/app") process.exit(1)'
+          curl --fail --silent --show-error --max-time 120 "${FRONTEND_E2E_URL%/app*}/ready"
+      - run: npm --prefix frontend run test:e2e
+      - uses: actions/upload-artifact@v4
+        with:
+          name: frontend-render-qa
+          path: evidence/generated/frontend/
+          if-no-files-found: error

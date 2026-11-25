@@ -1,0 +1,35 @@
+:root { font-family: system-ui, sans-serif; color: #1c2622; background: #f5f5ef; line-height: 1.55; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: #175538; text-underline-offset: .22em; }
+button, input, select { font: inherit; }
+button, .button { display: inline-block; background: #164934; color: white; padding: .62rem .95rem; border: 1px solid #164934; border-radius: .35rem; text-decoration: none; cursor: pointer; }
+button:disabled { opacity: .55; cursor: default; }
+:focus-visible { outline: 3px solid #9d510b; outline-offset: 3px; }
+.top { background: #fff; border-bottom: 1px solid #dce2d9; }
+.shell { width: min(100% - 2rem, 70rem); margin-inline: auto; }
+.nav, .nav-links, .actions { display: flex; align-items: center; gap: .95rem; flex-wrap: wrap; }
+.nav { min-height: 4.4rem; justify-content: space-between; padding-block: .5rem; }
+.brand { font-size: 1.65rem; font-weight: 850; color: #132c22; text-decoration: none; letter-spacing: -.06em; }
+.brand span { color: #487d4f; }
+.nav-links a.active { font-weight: 700; }
+.ghost { color: #174f35; background: transparent; border-color: #6a8271; }
+.content { padding-block: 2rem 4rem; }
+.hero { color: white; background: #163b2c; border-radius: .75rem; padding: clamp(1.5rem, 6vw, 4rem); margin-bottom: 1.35rem; }
+h1 { line-height: 1.05; font-size: clamp(2rem, 6vw, 3.6rem); letter-spacing: -.045em; margin: 0 0 .85rem; }
+h2 { line-height: 1.15; margin: 0; }
+p { margin: .6rem 0; }
+.panel { padding: clamp(1rem, 3vw, 1.8rem); background: white; border: 1px solid #d8e0d7; border-radius: .65rem; }
+.form-panel { max-width: 38rem; }
+.event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+.event { border-top: 4px solid #547e57; }
+.event-meta { font-weight: 650; color: #28563f; margin-bottom: .8rem; }
+.actions { margin-top: 1rem; }
+.pagination { justify-content: center; }
+form { display: grid; gap: .9rem; margin-top: 1rem; }
+label { display: grid; gap: .35rem; font-weight: 650; }
+input, select { min-width: 0; padding: .6rem; border: 1px solid #748679; border-radius: .35rem; background: white; color: #1c2622; }
+form > button { justify-self: start; }
+[role=alert] { color: #8a2c1b; }
+table { border-collapse: collapse; width: 100%; }
+td, th { text-align: left; padding: .7rem .35rem; border-bottom: 1px solid #d8e0d7; }
