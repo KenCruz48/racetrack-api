@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: racetrack-api
+    runtime: node
+    plan: free
+    buildCommand: MONGOMS_DISABLE_POSTINSTALL=1 npm ci --omit=dev && npm --prefix frontend ci --include=dev && npm --prefix frontend run build
+    startCommand: node src/server.js
+    healthCheckPath: /ready
+    envVars:
+      - key: NODE_VERSION
+        value: 24.22.1
+      - key: NODE_ENV
+        value: production
+      - key: VITE_API_URL
+        value: /api/v1
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true

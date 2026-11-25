@@ -1,5 +1,9 @@
 # RaceTrack API
 
+El frontend React del Sprint 3 está disponible en `/app/` después de compilarlo.
+Consulta la [guía del frontend](frontend/README.md) para instalarlo, ejecutar las
+pruebas y preparar la publicación en Render.
+
 ## Ejecutar la demostración preparada
 
 En Windows, abrir `INICIAR_DEMO_LOCAL.cmd` y luego http://localhost:3000.

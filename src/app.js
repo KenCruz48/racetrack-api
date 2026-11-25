@@ -29,6 +29,15 @@ app.disable('x-powered-by');
 const { securityHeaders, createAuthLimiter } = require('./middlewares/security');
 app.use(securityHeaders);
 
+const path = require('node:path');
+const frontend = path.join(__dirname, '..', 'frontend', 'dist');
+if (require('node:fs').existsSync(path.join(frontend, 'index.html'))) {
+  app.use('/app', express.static(frontend));
+  app.get(['/app', '/app/ingresar', '/app/mi-cuenta', '/app/clasificacion/:id'], (req, res) => {
+    res.sendFile(path.join(frontend, 'index.html'));
+  });
+}
+
 app.use(express.static(require('node:path').join(__dirname, '..', 'public')));
 
 app.use(
